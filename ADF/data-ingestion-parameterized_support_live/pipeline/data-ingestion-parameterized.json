@@ -1,0 +1,99 @@
+{
+    "name": "data-ingestion-parameterized",
+    "properties": {
+        "activities": [
+            {
+                "name": "ForEach_GitHub_Files",
+                "type": "ForEach",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "items": {
+                        "value": "@pipeline().parameters.p_file_list",
+                        "type": "Expression"
+                    },
+                    "activities": [
+                        {
+                            "name": "Copy_GitHub_To_ADLS",
+                            "type": "Copy",
+                            "dependsOn": [],
+                            "policy": {
+                                "timeout": "0.12:00:00",
+                                "retry": 0,
+                                "retryIntervalInSeconds": 30,
+                                "secureOutput": false,
+                                "secureInput": false
+                            },
+                            "userProperties": [],
+                            "typeProperties": {
+                                "source": {
+                                    "type": "DelimitedTextSource",
+                                    "storeSettings": {
+                                        "type": "HttpReadSettings",
+                                        "requestMethod": "GET"
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextReadSettings"
+                                    }
+                                },
+                                "sink": {
+                                    "type": "DelimitedTextSink",
+                                    "storeSettings": {
+                                        "type": "AzureBlobFSWriteSettings"
+                                    },
+                                    "formatSettings": {
+                                        "type": "DelimitedTextWriteSettings",
+                                        "quoteAllText": true,
+                                        "fileExtension": ".txt"
+                                    }
+                                },
+                                "enableStaging": false,
+                                "translator": {
+                                    "type": "TabularTranslator",
+                                    "typeConversion": true,
+                                    "typeConversionSettings": {
+                                        "allowDataTruncation": true,
+                                        "treatBooleanAsNumber": false
+                                    }
+                                }
+                            },
+                            "inputs": [
+                                {
+                                    "referenceName": "GithubfilesHTTP",
+                                    "type": "DatasetReference"
+                                }
+                            ],
+                            "outputs": [
+                                {
+                                    "referenceName": "adlssfileink",
+                                    "type": "DatasetReference",
+                                    "parameters": {
+                                        "p_file_name": {
+                                            "value": "@toLower(item())",
+                                            "type": "Expression"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "parameters": {
+            "p_file_list": {
+                "type": "array",
+                "defaultValue": [
+                    "Athletes.csv",
+                    "Coaches.csv",
+                    "EntriesGender.csv",
+                    "Medals.csv",
+                    "Teams.csv"
+                ]
+            }
+        },
+        "annotations": [],
+        "lastPublishTime": "2026-09-08T17:56:32Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

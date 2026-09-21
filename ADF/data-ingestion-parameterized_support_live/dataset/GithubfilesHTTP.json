@@ -1,0 +1,26 @@
+{
+    "name": "GithubfilesHTTP",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "GithubFilesHTTP",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "HttpServerLocation",
+                "relativeUrl": {
+                    "value": "darshilparmar/tokyo-olympic-azure-data-engineering-project/main/data/@{item()}",
+                    "type": "Expression"
+                }
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": []
+    },
+    "type": "Microsoft.DataFactory/factories/datasets"
+}

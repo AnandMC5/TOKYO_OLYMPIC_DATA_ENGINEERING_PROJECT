@@ -1,0 +1,6 @@
+selected resource name:		data-ingestion-parameterized
+selected resource type:		pipeline
+factory name:			adf-tokyo-olympic-datap2
+factory location:		southeastasia
+subscription id:		5d410dee-9b4a-413d-aa27-f291a756d2bf
+time of download (UTC):		Mon, 21 Sep 2026 20:25:37 GMT

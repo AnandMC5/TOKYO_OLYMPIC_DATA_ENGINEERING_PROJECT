@@ -1,0 +1,12 @@
+{
+    "name": "CoachesSink",
+    "type": "Microsoft.DataFactory/factories/linkedservices",
+    "properties": {
+        "annotations": [],
+        "type": "AzureBlobFS",
+        "typeProperties": {
+            "url": "https://olympicstorageaccanand.dfs.core.windows.net/",
+            "encryptedCredential": "*****************"
+        }
+    }
+}
